@@ -1,0 +1,9 @@
+# build files
+build/*.o
+build/*.out
+build/*.exe
+build/*.dll
+build/*.so
+
+# test files, input and output files
+*.txt
