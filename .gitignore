@@ -7,3 +7,8 @@ build/*.so
 
 # test files, input and output files
 *.txt
+
+.vscode
+vscode
+*.vscode
+/.vscode

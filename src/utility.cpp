@@ -70,7 +70,7 @@ bool Utility::is_single_ending_tag(const std::string tag)
     return false;
 }
 
-stack<std::string> Utility::append_stacks(stack<std::string> to, stack<std::string> from)
+std::stack<std::string> Utility::append_stacks(stack<std::string> to, stack<std::string> from)
 {
     stack<std::string> temporary_st;
     while (!from.empty())
@@ -88,6 +88,43 @@ stack<std::string> Utility::append_stacks(stack<std::string> to, stack<std::stri
     }
 
     return to;
+}
+
+std::map<std::string, std::string> Utility::extractAssignments(const std::vector<std::string> assignments) {
+    std::map<std::string, std::string> extractedAssignments;
+
+    for (const std::string& assignment : assignments) {
+        // Find the position of '=' in the assertion
+        size_t equalSignPos = assignment.find('=');
+        if (equalSignPos == std::string::npos) {
+            // Invalid assertion format, skip it
+            continue;
+        }
+
+        // Extract the variable name (before the '=' sign)
+        std::string variable = assignment.substr(0, equalSignPos);
+        // Trim any leading or trailing whitespaces
+        variable.erase(0, variable.find_first_not_of(" \t"));
+        variable.erase(variable.find_last_not_of(" \t") + 1);
+
+        // Extract the value (after the '=' sign)
+        std::string value = assignment.substr(equalSignPos + 1);
+        // Trim any leading or trailing whitespaces
+        value.erase(0, value.find_first_not_of(" \t"));
+        value.erase(value.find_last_not_of(" \t") + 1);
+
+        // Remove quotes from the value if present
+        if (!value.empty() && (value.front() == '"' || value.front() == '\'') &&
+            value.front() == value.back()) {
+            value = value.substr(1, value.size() - 2);
+        }
+
+        // Create an Assertion object and add it to the vector
+        // extractedAssignments.push_back({variable, value});
+        extractedAssignments[variable] = value;
+    }
+
+    return extractedAssignments;
 }
 
 const std::string Utility::double_ending_html_tags[DOUBLE_ENDING_TAGS] = {"html",
@@ -152,4 +189,6 @@ const std::string Utility::single_ending_html_tags[SINGLE_ENDING_TAGS] = {"br",
                                                  "param",
                                                  "source",
                                                  "track",
-                                                 "wbr"};
+                                                 "wbr",
+                                                 "DOCTYPE"
+                                                 };

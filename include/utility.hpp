@@ -6,9 +6,15 @@
 #include <string>
 #include <vector>
 #include <stack>
+#include <map>
 
 #define DOUBLE_ENDING_TAGS 45
-#define SINGLE_ENDING_TAGS 20
+#define SINGLE_ENDING_TAGS 21
+
+struct Assignment {
+    std::string variable;
+    std::string value;
+};
 
 class Utility
 {
@@ -20,10 +26,10 @@ public:
     static bool is_double_ending_tag(const std::string tag);
     static bool is_single_ending_tag(const std::string tag);
     static std::stack<std::string> append_stacks(std::stack<std::string> to, std::stack<std::string> from);
+    static std::map<std::string, std::string>extractAssignments(const std::vector<std::string> assignments);
 
     static const std::string double_ending_html_tags[DOUBLE_ENDING_TAGS];
     static const std::string single_ending_html_tags[SINGLE_ENDING_TAGS];
-
 
 };
 

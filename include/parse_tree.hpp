@@ -27,13 +27,19 @@ public:
     void print_tree(int level);
 
     std::vector<ParseTree *> getElementsByTagName(std::string tagname, ParseTree *root);
-
-private:
+    ParseTree* getElementById(ParseTree* root, std::string id);
 
     std::string node_tagname;
     int level;
+    std::string id;
+
+private:
+
+
+    std::stack<ParseTree*> tag_stack;
     std::vector<ParseTree *> children;
     void parse_html(std::string html);
+    // void parse_tree(std::string html);
 
 };
 
